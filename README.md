@@ -2,6 +2,66 @@
 
 This is a Blazor component to display a dropdown list with images based on [ms-Dropdown](https://github.com/marghoobsuleman/ms-Dropdown) by [Marghoob Suleman](https://github.com/marghoobsuleman). This component is built with NET7 for [Blazor WebAssembly](https://www.puresourcecode.com/tag/blazor-webassembly/) and [Blazor Server](https://www.puresourcecode.com/tag/blazor-server/). 
 
+## Installation
+Fist, you have to add the component from [NuGet](https://www.nuget.org/packages/PSC.Blazor.Components.ImageSelect/). Then, open your `index.html` or `_Host` and add at the end of the page the following CSS:
+
+```
+<link href="_content/PSC.Blazor.Components.ImageSelect/css/dd.css" rel="stylesheet" />
+<link href="_content/PSC.Blazor.Components.ImageSelect/css/flags.css" rel="stylesheet" />
+```
+
+and then at the end of the file those scripts:
+
+```
+<script src="/_content/PSC.Blazor.Components.ImageSelect/js/dd.min.js"></script>
+<script src="/_content/PSC.Blazor.Components.ImageSelect/js/imageselect.js" type="module"></script>
+```
+
+Open your `_Imports.razor` and add the following:
+
+```
+@using PSC.Blazor.Components.ImageSelect
+@using PSC.Blazor.Components.ImageSelect.Models.Configuration
+```
+
+## Add a new ImageSelect
+
+Imaging you want to display a dropdown for selecting a language. This dropdown has to display the flag of the country and the name of the language.
+
+![ImageSelect with flags](https://github.com/erossini/BlazorImageSelect/assets/9497415/d9589a11-59ae-4232-a2ec-bc401a017b6b)
+
+When the user clicks on the arrow, the component displays the list of options with the flag and the name of the language.
+
+![ImageSelect dropdown](https://github.com/erossini/BlazorImageSelect/assets/9497415/7bedfa98-f4a3-4a91-8a70-8d2f69dc25a1)
+
+Here the code
+
+```
+<ImageSelect CssClass="@CSSClass" SelectedValueChanged="OnSelectedValueChange" Width="@Width">
+    @if(ShowEmptyOption) {
+        <Option Value="" DataTitle="@EmptyOptionText" Text="@EmptyOptionText" />
+    }
+    <Option Value="en" DataImageCss="flag gb" DataTitle="English" Text="English" />
+    <Option Value="es" DataImageCss="flag es" DataTitle="Spanish" Text="Spanish" />
+    <Option Value="pt" DataImageCss="flag pt" DataTitle="Portuguese" Text="Portuguese" />
+    <Option Value="de" DataImageCss="flag de" DataTitle="German" Text="German" />
+    <Option Value="fr" DataImageCss="flag fr" DataTitle="French" Text="French" />
+    <Option Value="it" DataImageCss="flag it" DataTitle="Italian" Text="Italian" />
+</ImageSelect>
+
+@code {
+    [Parameter] public string? CSSClass { get; set; }
+    [Parameter] public string Width { get; set; } = "200px";
+    [Parameter] public bool ShowEmptyOption { get; set; } = false;
+    [Parameter] public string EmptyOptionText { get; set; } = "All";
+
+    public void OnSelectedValueChange(string selectedValue)
+    {
+        var t = selectedValue;
+    }
+}
+```
+
 ---
     
 ## PureSourceCode.com
