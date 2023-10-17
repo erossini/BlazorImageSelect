@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PSC.Blazor.Components.ImageSelect", "src\PSC.Blazor.Components.ImageSelect.csproj", "{A84FD3D6-758A-4E42-B6A6-2E7B9EF5D067}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Othe files", "Othe files", "{D8F788E3-C891-4676-89DD-E3456CD5C411}"
+	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A84FD3D6-758A-4E42-B6A6-2E7B9EF5D067}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A84FD3D6-758A-4E42-B6A6-2E7B9EF5D067}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A84FD3D6-758A-4E42-B6A6-2E7B9EF5D067}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A84FD3D6-758A-4E42-B6A6-2E7B9EF5D067}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EC6444AF-F543-482B-961E-D078A94CC80D}
+	EndGlobalSection
+EndGlobal

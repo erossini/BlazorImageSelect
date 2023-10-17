@@ -1,0 +1,89 @@
+﻿@using Microsoft.JSInterop;
+@using PSC.Blazor.Components.ImageSelect.Models.Configuration;
+@inject IJSRuntime JSRuntime
+
+<CascadingValue Value="this">
+    <select name="@Id" id="@Id" is="ms-dropdown" data-child-height="@DataChildHeight" style="width: @Width;">
+        @foreach (var option in Options)
+        {
+            <option value="@option.Value" data-description="@option.DataDescription"
+                    data-image-css="@option.DataImageCss" data-image="@option.DataImage"
+                    data-title="@option.DataTitle">@option.Text</option>
+        }
+    </select>
+
+    @ChildContent
+</CascadingValue>
+
+@code {
+    #region .NET Object references
+
+    /// <summary>
+    /// Gets or sets the js module.
+    /// </summary>
+    /// <value>The js module.</value>
+    protected ImageSelectJsInterop? JSModule { get; set; }
+
+    private DotNetObjectReference<ImageSelect>? objRef;
+
+    #endregion .NET Object references
+    #region Parameters
+    [Parameter] public EventCallback<int> SelectedIndexChanged { get; set; }
+
+    [Parameter] public EventCallback<string> SelectedValueChanged { get; set; }
+
+    [Parameter] public string? Id { get; set; }
+
+    [Parameter] public Config? Config { get; set; }
+
+    [Parameter] public string? CssClass { get; set; }
+
+    [Parameter] public string? DataChildHeight { get; set; } = "315";
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    [Parameter] public string? Width { get; set; }
+    #endregion
+    #region Variables
+    private int SelectedIndex;
+    private string? SelectedValue;
+
+    List<Option> Options = new List<Option>();
+    #endregion
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (string.IsNullOrEmpty(Id))
+            Id = "imageselect-" + Guid.NewGuid().ToString();
+
+        if (Config == null)
+            Config = new Config() { };
+
+        if (!string.IsNullOrEmpty(CssClass))
+            Config.MainCss += " " + CssClass;
+
+        var dotNetObjectRef = DotNetObjectReference.Create(this);
+        JSModule = new ImageSelectJsInterop(JSRuntime);
+        await JSModule.Setup(dotNetObjectRef, Id, Config);
+    }
+
+    internal void AddOption(Option option)
+    {
+        Options.Add(option);
+        StateHasChanged();
+    }
+
+    [JSInvokable]
+    public void OnSelectedIndexChange(int selectedIndex)
+    {
+        SelectedIndex = selectedIndex;
+        SelectedIndexChanged.InvokeAsync(selectedIndex);
+    }
+
+    [JSInvokable]
+    public void OnSelectedValueChange(string selectedValue)
+    {
+        SelectedValue = selectedValue;
+        SelectedValueChanged.InvokeAsync(selectedValue);
+    }
+}

@@ -1,0 +1,39 @@
+﻿@code {
+    #region Parameters
+    [CascadingParameter]
+    private ImageSelect Parent { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public string? Text { get; set; }
+
+    [Parameter]
+    public string? Value { get; set; }
+
+    [Parameter]
+    public bool Enabled { get; set; } = true;
+
+    [Parameter]
+    public string? DataImage { get; set; }
+
+    [Parameter]
+    public string? DataTitle { get; set; }
+
+    [Parameter]
+    public string? DataDescription { get; set; }
+
+    [Parameter]
+    public string? DataImageCss { get; set; }
+    #endregion
+
+    protected override void OnInitialized()
+    {
+        if (Parent == null)
+            throw new ArgumentNullException(nameof(Parent), "Option must exist within a ImageSelect control");
+
+        base.OnInitialized();
+        Parent.AddOption(this);
+    }
+}
